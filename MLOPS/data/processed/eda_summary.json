@@ -1,0 +1,32 @@
+{
+  "total_customers": 7043,
+  "churned_customers": 1869,
+  "churn_rate": 26.54,
+  "features": [
+    "customerID",
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges",
+    "Churn"
+  ],
+  "missing_values": {
+    "Missing Values": {},
+    "Percentage": {}
+  }
+}
