@@ -64,7 +64,7 @@ echo "Virtual environment created ✅"
 echo ""
 echo "[4/8] Installing ML libraries..."
 $VENV_DIR/bin/pip install --upgrade pip
-$VENV_DIR/bin/pip install numpy pandas scikit-learn matplotlib jupyterlab
+$VENV_DIR/bin/pip install numpy pandas scikit-learn matplotlib jupyterlab ruff black pytest
 echo "ML libraries installed ✅"
 
 # ── STEP 5: Install uv (Task 3) ──────────────────────
@@ -115,6 +115,9 @@ pandas
 numpy
 matplotlib
 jupyterlab
+ruff
+black
+pytest
 REQEOF
 
 # Generate lockfile using uv
@@ -166,7 +169,7 @@ READMEEOF
 
 ## Start JupyterLab
 source $VENV_DIR/bin/activate
-jupyter lab --config=jupyter_lab_config.py --no-browser & > $MLOPS_DIR/jupyter.log 2>&1 & 
+jupyter lab --config=jupyter_lab_config.py --no-browser  > $MLOPS_DIR/jupyter.log 2>&1 & 
 echo "Sucessfully started the JUPYTER LAB"
 
 JUPYTER_PID=$!
@@ -194,11 +197,28 @@ else
     exit 1  # Stop the script with an error
 fi
 
+cat > $MLOPS_DIR/pyproject.toml << 'TOMLEOF'
+[project]
+name = "mlops-project"
+version = "0.1.0"
+description = "Customer Churn Prediction MLOps Platform"
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I"]
+TOMLEOF
+echo "pyproject.toml created ✅"
+
 # ── MAKEFILE ──────────────────────────────────────────
 echo ""
 echo "Creating Makefile..."
 cat > $MLOPS_DIR/Makefile << 'MAKEEOF'
-.PHONY: setup data train test clean jupyter all
+.PHONY: setup data train test clean jupyter lint format format-check all
 
 setup:
 	python3 -m venv ml-env
@@ -218,6 +238,18 @@ jupyter:
 	ml-env/bin/jupyter lab \
 		--config=jupyter_lab_config.py \
 		--no-browser &
+
+lint:
+	ml-env/bin/ruff check src/
+	@echo "✅ Ruff check passed"
+
+format:
+	ml-env/bin/black src/
+	@echo "✅ Black formatting applied"
+
+format-check:
+	ml-env/bin/black --check src/
+	@echo "✅ Black check passed"
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
