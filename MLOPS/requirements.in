@@ -1,0 +1,7 @@
+# Customer Churn MLOps Project - Core Dependencies
+scikit-learn
+mlflow
+pandas
+numpy
+matplotlib
+jupyterlab
