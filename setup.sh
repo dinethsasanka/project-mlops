@@ -194,6 +194,39 @@ else
     exit 1  # Stop the script with an error
 fi
 
+# ── MAKEFILE ──────────────────────────────────────────
+echo ""
+echo "Creating Makefile..."
+cat > $MLOPS_DIR/Makefile << 'MAKEEOF'
+.PHONY: setup data train test clean jupyter all
+
+setup:
+	python3 -m venv ml-env
+	ml-env/bin/pip install --upgrade pip
+	ml-env/bin/pip install -r requirements.txt
+
+data:
+	ml-env/bin/python src/data/process_data.py
+
+train:
+	ml-env/bin/python src/models/train.py
+
+test:
+	ml-env/bin/pytest tests/ -v
+
+jupyter:
+	ml-env/bin/jupyter lab \
+		--config=jupyter_lab_config.py \
+		--no-browser &
+
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .pytest_cache
+	rm -rf models/*
+
+all: setup data train test
+MAKEEOF
+echo "Makefile created ✅"
 
 # Fix ownership — everything belongs to mlops user
 sudo chown -R mlops:mlops $MLOPS_DIR
