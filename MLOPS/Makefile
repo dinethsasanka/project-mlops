@@ -1,4 +1,4 @@
-.PHONY: setup data train test clean jupyter all
+.PHONY: setup data train test clean jupyter lint format format-check all
 
 # ── Setup ────────────────────────────────────────────
 setup:
@@ -35,6 +35,19 @@ clean:
 	rm -rf .pytest_cache
 	rm -rf models/*
 	@echo "✅ Cleanup complete"
+
+# ── Code Quality ─────────────────────────────────────
+lint:
+	ml-env/bin/ruff check src/
+	@echo "✅ Ruff check passed"
+
+format:
+	ml-env/bin/black src/
+	@echo "✅ Black formatting applied"
+
+fromat-check:
+	ml-env/bin/black --check src/
+	@echo "✅ Black check passed"
 
 # ── All ──────────────────────────────────────────────
 all: setup data train test

@@ -1,0 +1,15 @@
+[project]
+name = "mlops-project"
+version = "0.1.0"
+description = "Customer Chrun Prediction MLOps platform"
+
+[tool.black]
+line-length = 120
+
+[tool.ruff]
+line-length = 120 
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+
