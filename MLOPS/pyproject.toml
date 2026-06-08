@@ -1,7 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "mlops-project"
 version = "0.1.0"
-description = "Customer Chrun Prediction MLOps platform"
+description = "Customer Churn Prediction MLOps platform"
+requires-python = ">=3.10"
+dependencies = ["scikit-learn", "pandas", "numpy"]
 
 [tool.black]
 line-length = 120

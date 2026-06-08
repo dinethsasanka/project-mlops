@@ -1,4 +1,4 @@
-.PHONY: setup data train test clean jupyter lint format format-check all
+.PHONY: setup data train test clean jupyter lint format format-check build all
 
 # ── Setup ────────────────────────────────────────────
 setup:
@@ -29,13 +29,6 @@ jupyter:
 		--no-browser &
 	@echo "✅ JupyterLab started at port 8888"
 
-# ── Clean ────────────────────────────────────────────
-clean:
-	find . -type d -name "__pycache__" -exec rm -rf {} +
-	rm -rf .pytest_cache
-	rm -rf models/*
-	@echo "✅ Cleanup complete"
-
 # ── Code Quality ─────────────────────────────────────
 lint:
 	ml-env/bin/ruff check src/
@@ -45,9 +38,23 @@ format:
 	ml-env/bin/black src/
 	@echo "✅ Black formatting applied"
 
-fromat-check:
+format-check:
 	ml-env/bin/black --check src/
 	@echo "✅ Black check passed"
+
+# ── Build Package (Task 7) ───────────────────────────
+build:
+	ml-env/bin/python3 -m build
+	@echo "✅ Package built successfully"
+
+# ── Clean ────────────────────────────────────────────
+clean:
+	find . -type d -name "__pycache__" -exec rm -rf {} +
+	rm -rf .pytest_cache
+	rm -rf models/*
+	rm -rf dist/
+	rm -rf *.egg-info/
+	@echo "✅ Cleanup complete"
 
 # ── All ──────────────────────────────────────────────
 all: setup data train test

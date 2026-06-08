@@ -44,6 +44,8 @@ bleach==6.4.0
     # via nbconvert
 blinker==1.9.0
     # via flask
+build==1.5.0
+    # via -r requirements.in
 cachetools==7.1.4
     # via
     #   mlflow-skinny
@@ -146,6 +148,8 @@ idna==3.18
     #   yarl
 importlib-metadata==9.0.0
     # via mlflow-skinny
+iniconfig==2.3.0
+    # via pytest
 ipykernel==7.2.0
     # via jupyterlab
 ipython==9.14.1
@@ -295,6 +299,7 @@ opentelemetry-semantic-conventions==0.63b1
 packaging==26.2
     # via
     #   black
+    #   build
     #   gunicorn
     #   ipykernel
     #   jupyter-events
@@ -305,6 +310,7 @@ packaging==26.2
     #   mlflow-skinny
     #   mlflow-tracing
     #   nbconvert
+    #   pytest
     #   skops
 pandas==2.3.3
     # via
@@ -326,6 +332,8 @@ platformdirs==4.10.0
     # via
     #   black
     #   jupyter-core
+pluggy==1.6.0
+    # via pytest
 prettytable==3.17.0
     # via skops
 prometheus-client==0.25.0
@@ -372,8 +380,13 @@ pygments==2.20.0
     #   ipython
     #   ipython-pygments-lexers
     #   nbconvert
+    #   pytest
 pyparsing==3.3.2
     # via matplotlib
+pyproject-hooks==1.2.0
+    # via build
+pytest==9.0.3
+    # via -r requirements.in
 python-dateutil==2.9.0.post0
     # via
     #   arrow
